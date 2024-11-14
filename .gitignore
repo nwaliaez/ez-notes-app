@@ -1,0 +1,71 @@
+# Node modules
+node_modules/
+
+# Vite build output
+dist/
+.vite/
+
+# Electron build output
+out/
+release/
+*.asar
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+temp/
+*.tmp
+
+# Electron specific
+*.local
+/trayIcon.* # if you have icons for the system tray
+/electron-builder.json5 # optional if using electron-builder config file
+/electron-builder.env
+
+# Debugging
+*.pid
+*.pid.lock
+
+# Squirrel installer logs (Windows)
+squirrel.*
+installer.exe
+
+# NPM or Yarn related files
+package-lock.json
+yarn.lock
+
+# macOS files
+.AppleDouble
+.LSOverride
+
+# Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Windows image file caches
+*.stackdump
