@@ -19,9 +19,10 @@ const TitleInput: React.FC<TitleInputProps> = ({
       aria-label="Note Title"
       placeholder="Title here..."
       value={title}
+      // autoFocus={!title}
       onChange={handleTitleChange}
       onKeyDown={handleInputKeyDown}
-      className="flex-1 bg-transparent border-none text-white placeholder-white active:outline-none active:border-transparent active:ring-0 pl-5"
+      className="flex-1 bg-transparent border-none text-gray-600 placeholder-white active:outline-none text-2xl font-bold mb-4 active:border-transparent active:ring-0 pl-2"
     />
   )
 }

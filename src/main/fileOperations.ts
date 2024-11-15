@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app } from 'electron'
 
 import fs from 'fs'
 import path from 'path'

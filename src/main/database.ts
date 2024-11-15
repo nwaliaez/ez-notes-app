@@ -9,8 +9,12 @@ const db = new Database(dbPath)
 db.prepare(
   `CREATE TABLE IF NOT EXISTS notes (
     id TEXT PRIMARY KEY,
-    title TEXT,
-    content TEXT
+    title TEXT NOT NULL,
+    content TEXT,
+    createdAt TEXT NOT NULL DEFAULT (datetime('now')),
+    updatedAt TEXT NOT NULL DEFAULT (datetime('now')),
+    pinned INTEGER DEFAULT 0,
+    status TEXT DEFAULT 'active'
   )`
 ).run()
 

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Note } from '../global'
 import { stripHTML } from '../lib/utils'
+import { themeClasses } from '@renderer/noteThemes'
 
 const Home: React.FC = () => {
   const [notes, setNotes] = useState<Note[]>([])
@@ -17,33 +18,35 @@ const Home: React.FC = () => {
     fetchNotes()
   }, [])
 
-  const handleSelectNote = (id: string) => {
-    // Navigation is handled by <Link>, so this might not be necessary
-  }
-
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">All Notes</h1>
+      <h1 className="text-2xl font-bold mb-4">Notes</h1>
       {notes.length === 0 ? (
         <p>
-          No notes available.{' '}
+          No notes available.
           <Link to="/create" className="text-blue-500 hover:underline">
             Create one now!
           </Link>
         </p>
       ) : (
-        <ul>
-          {notes.map((note) => (
-            <li key={note.id} className="mb-2">
-              <Link to={`/notes/${note.id}`} className="text-lg text-blue-500 hover:underline">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {notes.map((note, index) => (
+            <div
+              key={note.id}
+              className={`${themeClasses[index > 4 ? 4 : index]} shadow rounded-lg p-4 hover:shadow-lg transition-shadow`}
+            >
+              <Link
+                to={`/notes/${note.id}`}
+                className="text-lg font-semibold text-gray-700 hover:underline"
+              >
                 {note.title || 'Untitled Note'}
               </Link>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 mt-2">
                 {stripHTML(note.content).substring(0, 100)}...
               </p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   )

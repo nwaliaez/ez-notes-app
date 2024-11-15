@@ -14,6 +14,12 @@ module.exports = {
     },
     extend: {
       colors: {
+        theme1: '#ffb3c6', // Theme 1
+        theme2: '#ffd6a5', // Theme 2
+        theme3: '#8ecae6', // Theme 3
+        theme4: '#9f86c0', // Theme 4
+        theme5: '#81b29a', // Theme 5
+
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

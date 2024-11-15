@@ -45,6 +45,10 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
       }
     }))
 
+    // useEffect(() => {
+    //   editor && content && editor.commands.focus()
+    // }, [editor, content])
+
     useEffect(() => {
       if (editor && content !== editor.getHTML()) {
         editor.commands.setContent(content)

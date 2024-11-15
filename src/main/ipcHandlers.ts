@@ -1,6 +1,14 @@
 import { ipcMain, BrowserWindow } from 'electron'
 import { createWindow } from './windows'
-import { createNote, readNote, readAllNotes, updateNote, deleteNote } from './databaseOperations'
+import {
+  createNote,
+  readNote,
+  readAllNotes,
+  updateNote,
+  deleteNote,
+  deleteNotePermanently,
+  readActiveNotes
+} from './databaseOperations'
 import { loadSettings, saveSettings } from './fileOperations'
 
 // Function to initialize all IPC handlers
@@ -25,6 +33,10 @@ export function initializeIpcHandlers(): void {
     return readNote(id)
   })
 
+  ipcMain.handle('read-active-notes', async (event) => {
+    return readActiveNotes()
+  })
+
   ipcMain.handle('read-all-notes', async () => {
     return readAllNotes()
   })
@@ -36,6 +48,11 @@ export function initializeIpcHandlers(): void {
 
   ipcMain.handle('delete-note', async (event, id) => {
     deleteNote(id)
+    return { success: true }
+  })
+
+  ipcMain.handle('delete-note-permanently', async (event, id) => {
+    deleteNotePermanently(id)
     return { success: true }
   })
 

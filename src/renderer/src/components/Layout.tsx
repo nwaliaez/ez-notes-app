@@ -2,24 +2,27 @@
 
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Sidebar from './Sidebar'
-import TopBar from './TopBar'
-import { useNoteManager } from '../hooks/useNoteManager'
+// import Sidebar from './Sidebar'
+import LeftBar from './LeftBar'
+// import { useNoteManager } from '../hooks/useNoteManager'
 import { useWindowControls } from '../hooks/useWindowControls'
 
 const Layout: React.FC = () => {
-  const { notes, handleSelectNote } = useNoteManager()
-  const { handleNewNoteClick, handleCloseClick } = useWindowControls()
+  // const { notes, handleDeleteNote, handleSelectNote } = useNoteManager()
+  const { handleCloseClick } = useWindowControls()
 
   return (
     <>
-      <Sidebar notes={notes} onSelectNote={handleSelectNote} />
-      <div className="flex fixed bg-primary top-0 p-2 w-full justify-end">
-        <TopBar handleNewNoteClick={handleNewNoteClick} handleCloseClick={handleCloseClick} />
-      </div>
+      {/* <Sidebar notes={notes} onDeleteNote={handleDeleteNote} onSelectNote={handleSelectNote} /> */}
 
-      <div className="p-6 overflow-y-auto">
-        <Outlet />
+      <div className="flex w-full h-full">
+        {/* Fixed LeftBar */}
+        <LeftBar handleCloseClick={handleCloseClick} />
+
+        {/* Main Content Area */}
+        <div className="flex-1 ml-8 p-6 overflow-hidden overflow-y-auto ">
+          <Outlet />
+        </div>
       </div>
     </>
   )
