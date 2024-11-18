@@ -56,7 +56,7 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
     }, [content, editor])
 
     return (
-      <div className="note-content pl-5 mt-4">
+      <>
         {/* Bubble Menu with basic formatting options */}
         {editor && (
           <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
@@ -75,8 +75,12 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
         )}
 
         {/* The main editor content */}
-        <EditorContent editor={editor} spellCheck={false} />
-      </div>
+        <EditorContent
+          className="text-sm w-full text-gray-600 outline-none"
+          editor={editor}
+          spellCheck={false}
+        />
+      </>
     )
   }
 )

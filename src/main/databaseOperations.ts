@@ -4,8 +4,10 @@ import { Note } from '../common/types'
 // Create Note
 // Create Note
 export function createNote(note: Note): void {
-  const stmt = db.prepare(`INSERT INTO notes (id, title,content, pinned) VALUES (?, ?, ?, ?)`)
-  stmt.run(note.id, note.title, note.content, note.pinned ? 1 : 0)
+  const stmt = db.prepare(
+    `INSERT INTO notes (id, title, content, theme, pinned) VALUES (?, ?, ?, ?, ?)`
+  )
+  stmt.run(note.id, note.title, note.content, note.theme, note.pinned ? 1 : 0)
 }
 
 // Read Note
@@ -23,11 +25,10 @@ export function readAllNotes(): Note[] {
 }
 
 // Fetch only active notes
-export function readActiveNotes(): Note[] {
-  const stmt = db.prepare(`SELECT * FROM notes WHERE status = 'active'`)
+export function readActiveNotes() {
+  const stmt = db.prepare(`SELECT * FROM notes WHERE status = 'active' ORDER BY createdAt DESC`)
   return stmt.all()
 }
-
 // Update Note
 export function updateNote(note: Note): void {
   const stmt = db.prepare(

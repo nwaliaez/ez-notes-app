@@ -11,6 +11,7 @@ db.prepare(
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
     content TEXT,
+    theme INTEGER DEFAULT 0, -- Added theme as an INTEGER column
     createdAt TEXT NOT NULL DEFAULT (datetime('now')),
     updatedAt TEXT NOT NULL DEFAULT (datetime('now')),
     pinned INTEGER DEFAULT 0,

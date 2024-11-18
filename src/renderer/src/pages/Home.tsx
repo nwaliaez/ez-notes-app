@@ -1,22 +1,45 @@
 // src/renderer/pages/Home.tsx
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Note } from '../global'
-import { stripHTML } from '../lib/utils'
 import { themeClasses } from '@renderer/noteThemes'
+import useNoteStore from '@renderer/store/useNoteStore'
+import debounce from 'lodash.debounce'
+import TitleInput from '@renderer/components/TitleInput'
+import Tiptap from '@renderer/components/TipTap'
 
 const Home: React.FC = () => {
-  const [notes, setNotes] = useState<Note[]>([])
+  const tiptapRef = useRef<any>(null) // Replace 'any' with the actual type if available
+
+  const notes = useNoteStore((state) => state.notes)
+  const loadNotes = useNoteStore((state) => state.loadNotes)
+  const updateNote = useNoteStore((state) => state.updateNote)
+  const [updatingNoteId, setUpdatingNoteId] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchNotes = async () => {
-      const fetchedNotes: Note[] = await window.electronAPI.readAllNotes()
-      setNotes(fetchedNotes)
-    }
+    // Load notes when the component mounts
+    loadNotes()
+  }, [loadNotes])
 
-    fetchNotes()
-  }, [])
+  const debouncedUpdateNote = debounce(async (note) => {
+    setUpdatingNoteId(note.id) // Show spinner
+    await updateNote(note)
+    setUpdatingNoteId(null) // Hide spinner
+  }, 300)
+
+  const handleNoteChange = (noteId: string, field: 'title' | 'content', value: string) => {
+    const noteToUpdate = notes.find((note) => note.id === noteId)
+    if (noteToUpdate) {
+      // Update local state immediately
+      const updatedNote = { ...noteToUpdate, [field]: value }
+      useNoteStore.setState((state) => ({
+        notes: state.notes.map((n) => (n.id === noteId ? updatedNote : n))
+      }))
+
+      // Trigger the debounced function for database update
+      debouncedUpdateNote(updatedNote)
+    }
+  }
 
   return (
     <div className="p-4">
@@ -30,20 +53,25 @@ const Home: React.FC = () => {
         </p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {notes.map((note, index) => (
+          {notes.map((note) => (
             <div
               key={note.id}
-              className={`${themeClasses[index > 4 ? 4 : index]} shadow rounded-lg p-4 hover:shadow-lg transition-shadow`}
+              className={`${themeClasses[note.theme]} shadow rounded-lg p-4 hover:shadow-lg transition-shadow`}
             >
-              <Link
-                to={`/notes/${note.id}`}
-                className="text-lg font-semibold text-gray-700 hover:underline"
-              >
-                {note.title || 'Untitled Note'}
-              </Link>
-              <p className="text-sm text-gray-600 mt-2">
+              <TitleInput
+                title={note.title || 'Untitled Note'}
+                handleTitleChange={(e) => handleNoteChange(note.id, 'title', e.target.value)}
+              />
+              {/* <p className="text-lg font-semibold text-gray-700 hover:underline"></p> */}
+              <Tiptap
+                content={note.content}
+                ref={tiptapRef}
+                onContentChange={(value) => handleNoteChange(note.id, 'content', value)}
+              />
+
+              {/* <p className="text-sm text-gray-600 mt-2">
                 {stripHTML(note.content).substring(0, 100)}...
-              </p>
+              </p> */}
             </div>
           ))}
         </div>

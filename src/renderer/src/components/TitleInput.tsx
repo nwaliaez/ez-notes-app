@@ -6,14 +6,9 @@ import { Input } from './ui/input'
 interface TitleInputProps {
   title: string
   handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  handleInputKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-const TitleInput: React.FC<TitleInputProps> = ({
-  title,
-  handleTitleChange,
-  handleInputKeyDown
-}) => {
+const TitleInput: React.FC<TitleInputProps> = ({ title, handleTitleChange }) => {
   return (
     <Input
       aria-label="Note Title"
@@ -21,8 +16,7 @@ const TitleInput: React.FC<TitleInputProps> = ({
       value={title}
       // autoFocus={!title}
       onChange={handleTitleChange}
-      onKeyDown={handleInputKeyDown}
-      className="flex-1 bg-transparent border-none text-gray-600 placeholder-white active:outline-none text-2xl font-bold mb-4 active:border-transparent active:ring-0 pl-2"
+      className="flex-1 bg-transparent w-full border-none text-gray-600 placeholder-white active:outline-none text-2xl font-bold active:border-transparent active:ring-0 "
     />
   )
 }
