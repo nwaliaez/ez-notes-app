@@ -74,6 +74,7 @@ const Home: React.FC = () => {
                 <Pin className="h-5 w-5 cursor-pointer text-gray-500" />
               </div>
               <TitleInput
+                className="border-none"
                 title={note.title || 'Untitled Note'}
                 handleTitleChange={(e) => handleNoteChange(note.id, 'title', e.target.value)}
               />

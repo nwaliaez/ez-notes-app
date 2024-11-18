@@ -39,25 +39,18 @@ const PinnedNote = () => {
 
   if (!note) return null
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <div className={`relative shadow rounded-lg p-4 hover:shadow-lg transition-shadow group`}>
-        {/* <div
-        className="absolute top-2 right-2 cursor-pointer opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity delay-100"
-        onClick={() => handlePinNote(note.id)}
-      >
-        <Pin className="h-5 w-5 cursor-pointer text-gray-500" />
-      </div> */}
-        <TitleInput
-          title={note.title || 'Untitled Note'}
-          handleTitleChange={(e) => handleNoteChange('title', e.target.value)}
-        />
-
-        <Tiptap
-          content={note.content}
-          ref={tiptapRef}
-          onContentChange={(value) => handleNoteChange('content', value)}
-        />
-      </div>
+    <div className="p-2">
+      <TitleInput
+        className="text-white border-b border-gray-400 border-dashed pb-1"
+        title={note.title || 'Untitled Note'}
+        handleTitleChange={(e) => handleNoteChange('title', e.target.value)}
+      />
+      <Tiptap
+        className="text-white mt-4 text-lg"
+        content={note.content}
+        ref={tiptapRef}
+        onContentChange={(value) => handleNoteChange('content', value)}
+      />
     </div>
   )
 }

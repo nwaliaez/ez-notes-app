@@ -2,3 +2,56 @@
   height: 200px;
   outline: none;
 }
+
+/* Style for unordered and ordered lists inside the TipTap editor */
+.ProseMirror ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+}
+
+.ProseMirror ul ul,
+.ProseMirror ol ul {
+  list-style-type: circle;
+}
+
+.ProseMirror ol ol,
+.ProseMirror ul ol {
+  list-style-type: lower-roman;
+}
+
+/* Remove bullets for task lists */
+ul[data-type='taskList'] {
+  list-style: none; /* Removes the default bullet points */
+  padding: 0; /* Optional: Removes default padding */
+  margin: 0; /* Optional: Removes default margin */
+}
+
+/* Ensure label and div are on the same line */
+ul[data-type='taskList'] > li {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically align items */
+  gap: 8px; /* Adds space between label and div */
+  margin-bottom: 0.5rem; /* Optional: Add spacing between tasks */
+}
+
+/* Style the label */
+ul[data-type='taskList'] > li > label {
+  display: flex;
+  align-items: center; /* Center align the checkbox and text */
+  cursor: pointer; /* Makes the label clickable */
+}
+
+/* Optional: Add some spacing or styling to the checkbox */
+ul[data-type='taskList'] > li > label input[type='checkbox'] {
+  margin-right: 8px; /* Adds spacing between the checkbox and text */
+}
+
+/* Optional: Style the div to look clean */
+ul[data-type='taskList'] > li > div {
+  flex-grow: 1; /* Makes the text area take up remaining space */
+}
