@@ -13,7 +13,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   updateNote: (note) => ipcRenderer.invoke('update-note', note),
   deleteNote: (id) => ipcRenderer.invoke('delete-note', id),
 
-  // GET THEME FROM JSON
-  getSettings: () => ipcRenderer.invoke('get-settings'),
-  saveSettings: (settings) => ipcRenderer.invoke('save-settings', settings)
+  // PIN NOTE
+  pinNote: (note) => ipcRenderer.invoke('pin-note', note)
 })

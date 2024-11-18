@@ -12,6 +12,7 @@ declare global {
       deleteNotePermanently: (id: string) => Promise<{ success: boolean }>
       getSettings: () => Promise<Settings>
       saveSettings: (settings: Settings) => Promise<boolean>
+      pinNote: (noteId: string) => void
     }
   }
 }

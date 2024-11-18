@@ -18,6 +18,14 @@ function initializeApp() {
   // Create the main window
   const mainWindow = createWindow()
 
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.insertCSS(`
+      body {
+        background-color: #202127 !important;
+      }
+    `)
+  })
+
   // Handle macOS activate event
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()

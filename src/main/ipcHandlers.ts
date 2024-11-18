@@ -1,5 +1,5 @@
 import { ipcMain, BrowserWindow } from 'electron'
-import { createWindow } from './windows'
+import { createWindow, pinnedNote } from './windows'
 import {
   createNote,
   readNote,
@@ -9,13 +9,16 @@ import {
   deleteNotePermanently,
   readActiveNotes
 } from './databaseOperations'
-import { loadSettings, saveSettings } from './fileOperations'
 
 // Function to initialize all IPC handlers
 export function initializeIpcHandlers(): void {
   // Window Control
   ipcMain.on('create-new-note', () => {
     createWindow()
+  })
+
+  ipcMain.handle('pin-note', (event, id) => {
+    pinnedNote(id)
   })
 
   ipcMain.on('close-window', (event) => {
@@ -54,14 +57,5 @@ export function initializeIpcHandlers(): void {
   ipcMain.handle('delete-note-permanently', async (event, id) => {
     deleteNotePermanently(id)
     return { success: true }
-  })
-
-  ipcMain.handle('get-settings', () => {
-    return loadSettings()
-  })
-
-  ipcMain.handle('save-settings', (event, settings) => {
-    saveSettings(settings)
-    return true
   })
 }

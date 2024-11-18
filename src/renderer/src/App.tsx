@@ -9,34 +9,15 @@ import LocalNoteDetails from './pages/LocalNoteDetails'
 import Settings from './pages/Settings'
 
 // Import the custom hook
-import useTheme from './hooks/useTheme'
 import OnlineNoteDetails from './pages/OnlineNoteDetails'
+import PinnedNote from './components/PinnedNote'
 
 const App: React.FC = () => {
-  const [settings, setSettings] = useState<Settings>({
-    primaryColor: '#1f2937',
-    secondaryColor: '#3b82f6',
-    backgroundColor: '#ffffff'
-  })
-
-  // Fetch settings on app load
-  useEffect(() => {
-    const fetchSettings = async () => {
-      const savedSettings = await window.electronAPI.getSettings()
-      if (savedSettings) {
-        setSettings(savedSettings)
-      }
-    }
-
-    fetchSettings()
-  }, [])
-
-  // Apply the theme using the custom hook
-  useTheme(settings)
-
   return (
     <Router>
       <Routes>
+        <Route path="/pinnedNote/:id" element={<PinnedNote />} />
+
         {/* Layout Route */}
         <Route path="/" element={<Layout />}>
           {/* Index Route - Home Page */}
@@ -49,10 +30,12 @@ const App: React.FC = () => {
           {/* Dynamic Route */}
           <Route path="notes/:id" element={<LocalNoteDetails />} />
           <Route path="onlineNotes/:id" element={<OnlineNoteDetails />} />
-
-          {/* Fallback Route */}
           <Route path="*" element={<Home />} />
         </Route>
+
+        {/* Pinned Note Route - No Layout */}
+
+        {/* Fallback Route */}
       </Routes>
     </Router>
   )
