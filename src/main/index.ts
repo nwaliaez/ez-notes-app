@@ -1,7 +1,7 @@
-import { app, BrowserWindow } from 'electron'
+import { app } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { initializeIpcHandlers } from './ipcHandlers'
-import { createWindow } from './windows'
+import { createMainWindow } from './windows'
 
 function initializeApp() {
   // Set app user model id for Windows
@@ -16,7 +16,7 @@ function initializeApp() {
   initializeIpcHandlers()
 
   // Create the main window
-  const mainWindow = createWindow()
+  const mainWindow = createMainWindow()
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.insertCSS(`
@@ -27,9 +27,9 @@ function initializeApp() {
   })
 
   // Handle macOS activate event
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
+  // app.on('activate', function () {
+  //   if (BrowserWindow.getAllWindows().length === 0) createMainWindow()
+  // })
 }
 
 // This method will be called when Electron has finished initialization

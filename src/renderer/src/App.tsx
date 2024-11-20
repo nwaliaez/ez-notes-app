@@ -1,6 +1,6 @@
 // src/renderer/App.tsx
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import CreateNote from './pages/CreateNote'
@@ -12,7 +12,11 @@ import PinnedNote from './pages/PinnedNote'
 import OnlineNoteDetails from './pages/OnlineNoteDetails'
 import Timer from './pages/Timer'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 const App: React.FC = () => {
+  const Router = isDev ? BrowserRouter : HashRouter
+
   return (
     <Router>
       <Routes>

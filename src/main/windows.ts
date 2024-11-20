@@ -1,154 +1,165 @@
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, shell, BrowserWindowConstructorOptions } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
 import path from 'path'
-const isMac = process.platform === 'darwin'
-export function createWindow(): BrowserWindow {
-  const mainWindow = new BrowserWindow({
-    width: 600,
-    height: 600,
-    show: false,
-    autoHideMenuBar: true,
-    ...(isMac
-      ? { icon: path.join(__dirname, 'icon.icns') }
-      : { icon: path.join(__dirname, 'icon.png') }),
-    webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
-      contextIsolation: true,
-      nodeIntegration: false
-    }
-  })
 
-  // mainWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
-
-  mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
-    mainWindow.webContents.openDevTools() // Opens DevTools
-  })
-
-  mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url)
-    return { action: 'deny' }
-  })
-
-  // Load the appropriate URL or file
-  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
-  } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
-  }
-
-  return mainWindow
+interface WindowConfig {
+  width?: number
+  height?: number
+  transparent?: boolean
+  vibrancy?: BrowserWindowConstructorOptions['vibrancy']
+  alwaysOnTop?: boolean
+  autoHideMenuBar?: boolean
+  frame?: boolean
+  hasShadow?: boolean
+  title?: string
+  visibleOnAllWorkspaces?: boolean
 }
 
-export function pinnedNote(noteId: string): BrowserWindow {
-  const pinnedWindow = new BrowserWindow({
-    width: 300,
-    height: 400,
-    show: false,
-    autoHideMenuBar: true,
-    transparent: true,
-    vibrancy: isMac ? 'hud' : undefined,
-    alwaysOnTop: true,
-    // frame: false, // Remove window frame to eliminate borders
-    // hasShadow: false, // Remove window shadows
-    ...(isMac
-      ? { icon: path.join(__dirname, 'icon.icns') }
-      : { icon: path.join(__dirname, 'icon.png') }),
-    webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
-      contextIsolation: true,
-      nodeIntegration: false
-    }
-  })
+interface WindowConfig extends Partial<BrowserWindowConstructorOptions> {
+  openDevTools?: boolean
+}
 
-  pinnedWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
+const isMac = process.platform === 'darwin'
 
-  pinnedWindow.on('ready-to-show', () => {
-    pinnedWindow.show()
-    pinnedWindow.webContents.openDevTools() // Opens DevTools
-  })
+// Base window configuration
+const defaultWindowConfig: WindowConfig = {
+  width: 600,
+  height: 600,
+  autoHideMenuBar: true,
+  transparent: false,
+  vibrancy: undefined,
+  alwaysOnTop: false,
+  frame: true,
+  hasShadow: true,
+  visibleOnAllWorkspaces: false,
+  openDevTools: true,
+  title: 'Ez Notes'
+}
 
-  pinnedWindow.webContents.setWindowOpenHandler((details) => {
+// Utility function to get the icon path based on platform
+const getIconPath = (): string => {
+  return path.join(__dirname, isMac ? 'icon.icns' : 'icon.png')
+}
+
+// Utility function to get web preferences
+const getWebPreferences = () => ({
+  preload: path.join(__dirname, '../preload/index.js'),
+  contextIsolation: true,
+  nodeIntegration: false
+})
+
+// Function to handle external URLs
+const handleExternalUrls = (window: BrowserWindow) => {
+  window.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
+}
 
-  // Load the appropriate URL or file
+// Function to handle window opacity on focus/blur
+const setupWindowOpacityBehavior = (window: BrowserWindow) => {
+  app.on('browser-window-blur', (event, browserWindow) => {
+    if (browserWindow === window) {
+      browserWindow.setOpacity(0.7)
+    }
+  })
+
+  app.on('browser-window-focus', (event, browserWindow) => {
+    if (browserWindow === window) {
+      browserWindow.setOpacity(1)
+    }
+  })
+}
+
+// Function to load the appropriate content
+const loadContent = (
+  window: BrowserWindow,
+  routePath?: string,
+  queryParams: Record<string, string> = {}
+) => {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    pinnedWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/pinnedNote/${noteId}`)
+    const url = routePath
+      ? `${process.env['ELECTRON_RENDERER_URL']}${routePath}`
+      : process.env['ELECTRON_RENDERER_URL']
+    window.loadURL(url)
   } else {
-    pinnedWindow.loadFile(join(__dirname, '../renderer/index.html'), {
-      query: { id: noteId }
+    window.loadFile(join(__dirname, '../renderer/index.html'), {
+      query: queryParams
     })
   }
-
-  app.on('browser-window-blur', function (event, browserWindow) {
-    if (browserWindow === pinnedWindow) {
-      browserWindow.setOpacity(0.7) // Set reduced opacity for the pinned window
-    }
-  })
-
-  app.on('browser-window-focus', function (event, browserWindow) {
-    if (browserWindow === pinnedWindow) {
-      browserWindow.setOpacity(1) // Set reduced opacity for the pinned window
-    }
-  })
-
-  return pinnedWindow
 }
 
-export function timerWindow(): BrowserWindow {
-  const timerWindow = new BrowserWindow({
-    width: 300,
-    height: 400,
+// Main window creation function
+const createWindow = (
+  config: WindowConfig = {},
+  routePath?: string,
+  queryParams: Record<string, string> = {}
+): BrowserWindow => {
+  const finalConfig = { ...defaultWindowConfig, ...config }
+
+  const window = new BrowserWindow({
+    ...finalConfig,
     show: false,
-    autoHideMenuBar: true,
-    transparent: true,
-    vibrancy: isMac ? 'hud' : undefined,
-    alwaysOnTop: true,
-    // frame: false, // Remove window frame to eliminate borders
-    // hasShadow: false, // Remove window shadows
-    ...(isMac
-      ? { icon: path.join(__dirname, 'icon.icns') }
-      : { icon: path.join(__dirname, 'icon.png') }),
-    webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
-      contextIsolation: true,
-      nodeIntegration: false
-    }
+    icon: getIconPath(),
+    webPreferences: getWebPreferences()
   })
 
-  timerWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
-
-  timerWindow.on('ready-to-show', () => {
-    timerWindow.show()
-    timerWindow.webContents.openDevTools() // Opens DevTools
-  })
-
-  timerWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url)
-    return { action: 'deny' }
-  })
-
-  // Load the appropriate URL or file
-  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    timerWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/timer`)
-  } else {
-    timerWindow.loadFile(join(__dirname, '../renderer/index.html'))
+  if (finalConfig.visibleOnAllWorkspaces) {
+    window.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
   }
 
-  app.on('browser-window-blur', function (event, browserWindow) {
-    if (browserWindow === timerWindow) {
-      browserWindow.setOpacity(0.7) // Set reduced opacity for the pinned window
+  window.on('ready-to-show', () => {
+    window.show()
+    if (is.dev) {
+      window.webContents.openDevTools()
     }
   })
 
-  app.on('browser-window-focus', function (event, browserWindow) {
-    if (browserWindow === timerWindow) {
-      browserWindow.setOpacity(1) // Set reduced opacity for the pinned window
-    }
-  })
+  handleExternalUrls(window)
+  loadContent(window, routePath, queryParams)
 
-  return timerWindow
+  if (finalConfig.transparent) {
+    setupWindowOpacityBehavior(window)
+  }
+
+  return window
+}
+
+// Export specific window creation functions
+export function createMainWindow(): BrowserWindow {
+  return createWindow()
+}
+
+export function createPinnedNote(noteId: string): BrowserWindow {
+  return createWindow(
+    {
+      width: 300,
+      height: 400,
+      transparent: true,
+      vibrancy: isMac ? 'hud' : undefined,
+      alwaysOnTop: true,
+      visibleOnAllWorkspaces: true,
+      openDevTools: true
+      // title: 'Ez Notes'
+    },
+    `/pinnedNote/${noteId}`,
+    { id: noteId }
+  )
+}
+
+export function createTimerWindow(): BrowserWindow {
+  return createWindow(
+    {
+      width: 300,
+      height: 400,
+      transparent: true,
+      vibrancy: isMac ? 'hud' : undefined,
+      alwaysOnTop: true,
+      visibleOnAllWorkspaces: true,
+      openDevTools: true
+      // title: 'Timer'
+    },
+    '/timer'
+  )
 }
