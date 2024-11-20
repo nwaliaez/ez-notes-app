@@ -123,9 +123,9 @@ const createWindow = (
 
   window.on('ready-to-show', () => {
     window.show()
-    // if (is.dev) {
-    window.webContents.openDevTools()
-    // }
+    if (is.dev) {
+      window.webContents.openDevTools()
+    }
   })
 
   handleExternalUrls(window)
