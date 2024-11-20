@@ -19,7 +19,7 @@ const TitleInput: React.FC<TitleInputProps> = ({ title, handleTitleChange, class
       // autoFocus={!title}
       onChange={handleTitleChange}
       className={clsx(
-        'flex-1 bg-transparent w-full text-gray-600 placeholder-white active:outline-none text-xl font-bold active:border-transparent active:ring-0',
+        'flex-1 bg-transparent w-full text-gray-600 placeholder-gray-600 active:outline-none text-xl font-bold active:border-transparent active:ring-0',
         className // Merges additional classes if provided
       )}
     />
