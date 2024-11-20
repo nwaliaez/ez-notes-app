@@ -4,12 +4,10 @@ import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import CreateNote from './pages/CreateNote'
-import LocalNoteDetails from './pages/LocalNoteDetails'
 import Settings from './pages/Settings'
 import PinnedNote from './pages/PinnedNote'
 
 // Import the custom hook
-import OnlineNoteDetails from './pages/OnlineNoteDetails'
 import Timer from './pages/Timer'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -33,8 +31,8 @@ const App: React.FC = () => {
           <Route path="settings" element={<Settings />} />
 
           {/* Dynamic Route */}
-          <Route path="notes/:id" element={<LocalNoteDetails />} />
-          <Route path="onlineNotes/:id" element={<OnlineNoteDetails />} />
+          {/* <Route path="notes/:id" element={<LocalNoteDetails />} /> */}
+          {/* <Route path="onlineNotes/:id" element={<OnlineNoteDetails />} /> */}
           <Route path="*" element={<Home />} />
         </Route>
 

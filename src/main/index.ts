@@ -37,15 +37,6 @@ app.whenReady().then(() => {
   initializeApp()
 })
 
-// Adjust window opacity on focus/blur
-app.on('browser-window-blur', function (event, browserWindow) {
-  // browserWindow.setOpacity(0.5)
-})
-
-app.on('browser-window-focus', function (event, browserWindow) {
-  browserWindow.setOpacity(1.0)
-})
-
 // Quit when all windows are closed, except on macOS
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

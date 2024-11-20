@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom'
 import { themeClasses } from '@renderer/noteThemes'
 import useNoteStore from '@renderer/store/useNoteStore'
 
-interface LeftBarProps {
-  handleCloseClick: () => void
-}
-
-const LeftBar: React.FC<LeftBarProps> = ({ handleCloseClick }) => {
+const LeftBar: React.FC = ({}) => {
   const [showThemes, setShowThemes] = useState(false)
   const addNote = useNoteStore((state) => state.addNote)
 

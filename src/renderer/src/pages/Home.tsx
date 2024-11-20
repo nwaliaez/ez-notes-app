@@ -1,6 +1,6 @@
 // src/renderer/pages/Home.tsx
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { themeClasses } from '@renderer/noteThemes'
 import useNoteStore from '@renderer/store/useNoteStore'

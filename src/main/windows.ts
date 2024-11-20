@@ -59,13 +59,13 @@ const handleExternalUrls = (window: BrowserWindow) => {
 
 // Function to handle window opacity on focus/blur
 const setupWindowOpacityBehavior = (window: BrowserWindow) => {
-  app.on('browser-window-blur', (event, browserWindow) => {
+  app.on('browser-window-blur', (_event, browserWindow) => {
     if (browserWindow === window) {
       browserWindow.setOpacity(0.7)
     }
   })
 
-  app.on('browser-window-focus', (event, browserWindow) => {
+  app.on('browser-window-focus', (_event, browserWindow) => {
     if (browserWindow === window) {
       browserWindow.setOpacity(1)
     }
@@ -84,9 +84,21 @@ const loadContent = (
       : process.env['ELECTRON_RENDERER_URL']
     window.loadURL(url)
   } else {
-    window.loadFile(join(__dirname, '../renderer/index.html'), {
-      query: queryParams
-    })
+    // Build the file URL with the hash
+    const filePath = join(__dirname, '../renderer/index.html')
+    let url = `file://${filePath}`
+
+    if (routePath) {
+      url += `#${routePath.startsWith('/') ? routePath.slice(1) : routePath}`
+    }
+
+    // Append query parameters if any
+    if (Object.keys(queryParams).length > 0) {
+      const queryString = new URLSearchParams(queryParams).toString()
+      url += `?${queryString}`
+    }
+
+    window.loadURL(url)
   }
 }
 
@@ -111,9 +123,9 @@ const createWindow = (
 
   window.on('ready-to-show', () => {
     window.show()
-    if (is.dev) {
-      window.webContents.openDevTools()
-    }
+    // if (is.dev) {
+    window.webContents.openDevTools()
+    // }
   })
 
   handleExternalUrls(window)
@@ -141,9 +153,8 @@ export function createPinnedNote(noteId: string): BrowserWindow {
       alwaysOnTop: true,
       visibleOnAllWorkspaces: true,
       openDevTools: true
-      // title: 'Ez Notes'
     },
-    `/pinnedNote/${noteId}`,
+    `pinnedNote/${noteId}`,
     { id: noteId }
   )
 }
@@ -160,6 +171,6 @@ export function createTimerWindow(): BrowserWindow {
       openDevTools: true
       // title: 'Timer'
     },
-    '/timer'
+    'timer'
   )
 }

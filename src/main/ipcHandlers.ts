@@ -17,7 +17,7 @@ export function initializeIpcHandlers(): void {
   //   createMainWindow()
   // })
 
-  ipcMain.handle('pin-note', (event, id) => {
+  ipcMain.handle('pin-note', (_event, id) => {
     createPinnedNote(id)
   })
 
@@ -31,16 +31,16 @@ export function initializeIpcHandlers(): void {
   })
 
   // Database Operations
-  ipcMain.handle('create-note', async (event, note) => {
+  ipcMain.handle('create-note', async (_event, note) => {
     createNote(note)
     return { success: true }
   })
 
-  ipcMain.handle('read-note', async (event, id) => {
+  ipcMain.handle('read-note', async (_event, id) => {
     return readNote(id)
   })
 
-  ipcMain.handle('read-active-notes', async (event) => {
+  ipcMain.handle('read-active-notes', async (_event) => {
     return readActiveNotes()
   })
 
@@ -48,17 +48,17 @@ export function initializeIpcHandlers(): void {
     return readAllNotes()
   })
 
-  ipcMain.handle('update-note', async (event, note) => {
+  ipcMain.handle('update-note', async (_event, note) => {
     updateNote(note)
     return { success: true }
   })
 
-  ipcMain.handle('delete-note', async (event, id) => {
+  ipcMain.handle('delete-note', async (_event, id) => {
     deleteNote(id)
     return { success: true }
   })
 
-  ipcMain.handle('delete-note-permanently', async (event, id) => {
+  ipcMain.handle('delete-note-permanently', async (_event, id) => {
     deleteNotePermanently(id)
     return { success: true }
   })
