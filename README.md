@@ -1,34 +1,70 @@
-# ez-notes
 
-An Electron application with React and TypeScript
+# EZ Notes
+
+A lightweight and efficient note-taking application built with **Electron**, **React**, and **TypeScript**. Simplify your note-taking experience with a clean and responsive interface.
+
+---
+
+## Features
+
+- Cross-platform compatibility (Windows, macOS, Linux)  
+- Built using modern web technologies  
+- Easy to set up and customize  
+- Pre-configured with ESLint and Prettier for code consistency  
+
+---
 
 ## Recommended IDE Setup
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+For a seamless development experience, we recommend using:  
 
-## Project Setup
+- [Visual Studio Code (VSCode)](https://code.visualstudio.com/)  
+  - [ESLint Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)  
+  - [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)  
 
-### Install
+---
+
+## Getting Started  
+
+### 1. Installation  
+
+Run the following command to install the dependencies:  
 
 ```bash
-$ npm install
+npm install
 ```
 
-### Development
+### 2. Development  
+
+Launch the development environment:  
 
 ```bash
-$ npm run dev
+npm run dev
 ```
 
-### Build
+### 3. Build  
+
+Generate production-ready builds for your platform:  
 
 ```bash
-# For windows
-$ npm run build:win
+# For Windows
+npm run build:win
 
 # For macOS
-$ npm run build:mac
+npm run build:mac
 
 # For Linux
-$ npm run build:linux
+npm run build:linux
 ```
+
+---
+
+## Contributing  
+
+Contributions are welcome! Feel free to submit issues or pull requests to help improve EZ Notes.  
+
+---
+
+## License  
+
+This project is licensed under the MIT License.  
