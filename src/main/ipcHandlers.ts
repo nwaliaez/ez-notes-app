@@ -1,5 +1,5 @@
 import { ipcMain, BrowserWindow } from 'electron'
-import { createWindow, pinnedNote } from './windows'
+import { createWindow, pinnedNote, timerWindow } from './windows'
 import {
   createNote,
   readNote,
@@ -19,6 +19,10 @@ export function initializeIpcHandlers(): void {
 
   ipcMain.handle('pin-note', (event, id) => {
     pinnedNote(id)
+  })
+
+  ipcMain.handle('timer-window', () => {
+    timerWindow()
   })
 
   ipcMain.on('close-window', (event) => {

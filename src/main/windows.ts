@@ -97,3 +97,58 @@ export function pinnedNote(noteId: string): BrowserWindow {
 
   return pinnedWindow
 }
+
+export function timerWindow(): BrowserWindow {
+  const timerWindow = new BrowserWindow({
+    width: 300,
+    height: 400,
+    show: false,
+    autoHideMenuBar: true,
+    transparent: true,
+    vibrancy: isMac ? 'hud' : undefined,
+    alwaysOnTop: true,
+    // frame: false, // Remove window frame to eliminate borders
+    // hasShadow: false, // Remove window shadows
+    ...(isMac
+      ? { icon: path.join(__dirname, 'icon.icns') }
+      : { icon: path.join(__dirname, 'icon.png') }),
+    webPreferences: {
+      preload: path.join(__dirname, '../preload/index.js'),
+      contextIsolation: true,
+      nodeIntegration: false
+    }
+  })
+
+  timerWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
+
+  timerWindow.on('ready-to-show', () => {
+    timerWindow.show()
+    timerWindow.webContents.openDevTools() // Opens DevTools
+  })
+
+  timerWindow.webContents.setWindowOpenHandler((details) => {
+    shell.openExternal(details.url)
+    return { action: 'deny' }
+  })
+
+  // Load the appropriate URL or file
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    timerWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/timer`)
+  } else {
+    timerWindow.loadFile(join(__dirname, '../renderer/index.html'))
+  }
+
+  app.on('browser-window-blur', function (event, browserWindow) {
+    if (browserWindow === timerWindow) {
+      browserWindow.setOpacity(0.7) // Set reduced opacity for the pinned window
+    }
+  })
+
+  app.on('browser-window-focus', function (event, browserWindow) {
+    if (browserWindow === timerWindow) {
+      browserWindow.setOpacity(1) // Set reduced opacity for the pinned window
+    }
+  })
+
+  return timerWindow
+}

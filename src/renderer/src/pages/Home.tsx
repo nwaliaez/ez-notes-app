@@ -65,7 +65,7 @@ const Home: React.FC = () => {
           {notes.map((note) => (
             <div
               key={note.id}
-              className={`${themeClasses[note.theme]} relative shadow rounded-lg p-4 hover:shadow-lg transition-shadow group`}
+              className={`${themeClasses[note.theme]} relative shadow rounded-lg p-4 hover:shadow-lg transition-shadow group overflow-auto`}
             >
               <div
                 className="absolute top-2 right-2 cursor-pointer opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity delay-100"

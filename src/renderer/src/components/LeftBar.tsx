@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { House, Plus } from 'lucide-react'
+import { House, Plus, Timer } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { themeClasses } from '@renderer/noteThemes'
 import useNoteStore from '@renderer/store/useNoteStore'
@@ -22,6 +22,9 @@ const LeftBar: React.FC<LeftBarProps> = ({ handleCloseClick }) => {
     addNote(newNote)
   }
 
+  const handleTimerClick = () => {
+    window.electronAPI.openTimer()
+  }
   return (
     <div className="fixed left-0 top-0 h-full w-16 flex flex-col justify-center items-center gap-6">
       <Link to={'/'}>
@@ -44,6 +47,12 @@ const LeftBar: React.FC<LeftBarProps> = ({ handleCloseClick }) => {
           </div>
         )}
       </div>
+      {/* <Link to={'/timer'}> */}
+      <Timer
+        className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-white"
+        onClick={handleTimerClick}
+      />
+      {/* </Link> */}
     </div>
   )
 }

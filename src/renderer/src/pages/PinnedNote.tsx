@@ -1,8 +1,8 @@
 import { Note } from '@renderer/global'
 import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import TitleInput from './TitleInput'
-import Tiptap from './TipTap'
+import TitleInput from '../components/TitleInput'
+import Tiptap from '../components/TipTap'
 import debounce from 'lodash.debounce'
 import useNoteStore from '@renderer/store/useNoteStore'
 

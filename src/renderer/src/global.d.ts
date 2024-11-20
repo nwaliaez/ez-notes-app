@@ -13,6 +13,7 @@ declare global {
       getSettings: () => Promise<Settings>
       saveSettings: (settings: Settings) => Promise<boolean>
       pinNote: (noteId: string) => void
+      openTimer: () => void
     }
   }
 }

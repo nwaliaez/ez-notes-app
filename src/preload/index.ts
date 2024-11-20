@@ -14,5 +14,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   deleteNote: (id) => ipcRenderer.invoke('delete-note', id),
 
   // PIN NOTE
-  pinNote: (note) => ipcRenderer.invoke('pin-note', note)
+  pinNote: (note) => ipcRenderer.invoke('pin-note', note),
+
+  // TIMER WINDOW
+  openTimer: () => ipcRenderer.invoke('timer-window')
 })

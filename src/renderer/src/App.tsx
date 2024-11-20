@@ -1,22 +1,23 @@
 // src/renderer/App.tsx
 
-import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import CreateNote from './pages/CreateNote'
 import LocalNoteDetails from './pages/LocalNoteDetails'
 import Settings from './pages/Settings'
+import PinnedNote from './pages/PinnedNote'
 
 // Import the custom hook
 import OnlineNoteDetails from './pages/OnlineNoteDetails'
-import PinnedNote from './components/PinnedNote'
+import Timer from './pages/Timer'
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
         <Route path="/pinnedNote/:id" element={<PinnedNote />} />
+        <Route path="timer" element={<Timer />} />
 
         {/* Layout Route */}
         <Route path="/" element={<Layout />}>
