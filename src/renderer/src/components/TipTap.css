@@ -90,8 +90,8 @@ ul[data-type='taskList'] > li > label span:hover {
 
 /* Checked state */
 ul[data-type='taskList'] > li > label input:checked + span {
-  background-color: #fcca46; /* Bright yellow for the checked state */
-  border-color: #f59e0b; /* Slightly darker border for contrast */
+  background-color: var(--color-secondary); /* Bright yellow for the checked state */
+  border-color: var(--theme-color); /* Slightly darker border for contrast */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow */
 }
 
@@ -103,7 +103,7 @@ ul[data-type='taskList'] > li > label input:checked + span::after {
   left: 50%;
   width: 10px;
   height: 10px;
-  background-color: #fff; /* White checkmark */
+  background-color: var(--theme-color); /* White checkmark */
   border-radius: 50%; /* Circular checkmark */
   transform: translate(-50%, -50%) scale(1); /* Centered and scaled */
   transition: transform 0.2s ease; /* Animation for checkmark */

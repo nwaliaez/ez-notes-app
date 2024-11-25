@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { themeClasses } from '@renderer/noteThemes'
+import { themeClasses, themeMap } from '@renderer/noteThemes'
 import useNoteStore from '@renderer/store/useNoteStore'
 import debounce from 'lodash.debounce'
 import TitleInput from '@renderer/components/TitleInput'
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
             <div
               key={note.id}
               className={`bg-secondary relative shadow rounded-md hover:shadow-lg transition-shadow group overflow-auto`}
-              style={{ '--theme-color': themeClasses[note.theme] } as React.CSSProperties}
+              style={{ '--theme-color': `${themeMap[note.theme]}` } as React.CSSProperties}
             >
               <div
                 className={`${themeClasses[note.theme]} text-title sticky top-0 shadow-md z-10 p-2 px-4 flex justify-between group`}
