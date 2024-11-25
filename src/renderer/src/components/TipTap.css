@@ -55,3 +55,63 @@ ul[data-type='taskList'] > li > label input[type='checkbox'] {
 ul[data-type='taskList'] > li > div {
   flex-grow: 1; /* Makes the text area take up remaining space */
 }
+ul[data-type='taskList'] > li > label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  gap: 8px; /* Adds spacing between the checkbox and the text */
+}
+
+ul[data-type='taskList'] > li > label input {
+  display: none; /* Hide the default checkbox */
+}
+
+ul[data-type='taskList'] > li > label span {
+  display: inline-block;
+  width: 20px; /* Increased size for better visibility */
+  height: 20px;
+  border-radius: 50%; /* Makes it circular */
+  border: 2px solid #ccc; /* Default border */
+  background-color: #fff; /* Default background */
+  transition: all 0.3s ease; /* Smooth transitions for hover and checked states */
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Hover effect for the checkbox */
+ul[data-type='taskList'] > li > label span:hover {
+  border-color: #888; /* Slightly darker border on hover */
+  background-color: #f4f4f4; /* Light gray hover effect */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+}
+
+/* Checked state */
+ul[data-type='taskList'] > li > label input:checked + span {
+  background-color: #fcca46; /* Bright yellow for the checked state */
+  border-color: #f59e0b; /* Slightly darker border for contrast */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+/* Add a checkmark using a pseudo-element */
+ul[data-type='taskList'] > li > label input:checked + span::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #fff; /* White checkmark */
+  border-radius: 50%; /* Circular checkmark */
+  transform: translate(-50%, -50%) scale(1); /* Centered and scaled */
+  transition: transform 0.2s ease; /* Animation for checkmark */
+  opacity: 1;
+}
+
+/* Unchecked state hides the checkmark */
+ul[data-type='taskList'] > li > label span::after {
+  transform: translate(-50%, -50%) scale(0); /* Scaled down */
+  opacity: 0;
+}

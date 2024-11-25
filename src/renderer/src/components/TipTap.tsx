@@ -129,7 +129,9 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
         OrderedList,
         TaskList,
         ListItem,
-        TaskItem.configure({ nested: true }),
+        TaskItem.configure({
+          nested: true
+        }),
         Link.configure({
           openOnClick: false,
           linkOnPaste: true
@@ -185,7 +187,7 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
           <BubbleMenu
             editor={editor}
             tippyOptions={{ duration: 100 }}
-            className="flex items-center gap-1 p-1.5 bg-gray-800/95 backdrop-blur-sm 
+            className="flex flex-wrap items-center gap-1 p-1.5 bg-gray-800/95 backdrop-blur-sm 
                       border border-gray-700/50 rounded-lg shadow-xl bubble-menu-container"
           >
             <ButtonGroup>
@@ -342,7 +344,7 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
         )}
 
         <EditorContent
-          className={clsx('text-sm w-full text-gray-600 outline-none', className)}
+          className={clsx('text-sm w-full text-text outline-none', className)}
           editor={editor}
           spellCheck={false}
         />

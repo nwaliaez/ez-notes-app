@@ -39,19 +39,21 @@ const PinnedNote = () => {
 
   if (!note) return null
   return (
-    <div className="p-2">
-      <TitleInput
-        className="text-white border-b border-gray-400 border-dashed pb-1"
-        title={note.title || 'Untitled Note'}
-        handleTitleChange={(e) => handleNoteChange('title', e.target.value)}
-      />
-      <Tiptap
-        className="text-white mt-4 text-lg"
-        content={note.content}
-        ref={tiptapRef}
-        onContentChange={(value) => handleNoteChange('content', value)}
-      />
-    </div>
+    <>
+      <div className="p-2">
+        <TitleInput
+          className="text-white border-b border-gray-400 border-dashed pb-1"
+          title={note.title}
+          handleTitleChange={(e) => handleNoteChange('title', e.target.value)}
+        />
+        <Tiptap
+          className="text-white mt-4 text-lg"
+          content={note.content}
+          ref={tiptapRef}
+          onContentChange={(value) => handleNoteChange('content', value)}
+        />
+      </div>
+    </>
   )
 }
 

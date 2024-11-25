@@ -15,69 +15,28 @@ module.exports = {
     extend: {
       colors: {
         theme1: '#ffb3c6', // Theme 1
-        theme2: '#ffd6a5', // Theme 2
-        theme3: '#8ecae6', // Theme 3
-        theme4: '#9f86c0', // Theme 4
+        theme2: '#f9daac', // Theme 2
+        theme3: '#a4d1e8', // Theme 3
+        theme4: '#adc0ea', // Theme 4
         theme5: '#81b29a', // Theme 5
-
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        primary: 'var(--primary-color)',
-        secondary: 'var(--secondary-color)',
-        background: 'var(--background-color)',
-        // background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        // primary: {
-        //   DEFAULT: 'hsl(var(--primary))',
-        //   foreground: 'hsl(var(--primary-foreground))'
-        // },
-        // secondary: {
-        //   DEFAULT: 'hsl(var(--secondary))',
-        //   foreground: 'hsl(var(--secondary-foreground))'
-        // },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))'
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))'
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))'
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
-        }
+        primary: 'var(--color-primary)', // Background
+        secondary: 'var(--color-secondary)', // Secondary background
+        text: 'var(--color-text)', // Primary text
+        title: 'var(--color-text-title)', // Primary text
+        textMuted: 'var(--color-text-muted)', // Muted/secondary text
+        border: 'var(--color-border)', // Borders
+        accent: 'var(--color-accent)', // Accent (buttons, links)
+        accentHover: 'var(--color-accent-hover)', // Hover state for accent
+        success: 'var(--color-success)', // Success state
+        error: 'var(--color-error)', // Error state
+        warning: 'var(--color-warning)', // Warning state
+        shadow: 'var(--color-shadow)' // Box shadows
       },
-      borderRadius: {
-        lg: `var(--radius)`,
-        md: `calc(var(--radius) - 2px)`,
-        sm: 'calc(var(--radius) - 4px)'
+      boxShadow: {
+        custom: '0 4px 6px var(--color-shadow)' // Custom shadow with theme-aware colors
       },
       fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans]
-      },
-      keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' }
-        },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' }
-        }
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
+        sans: ['Poppins', ...fontFamily.sans] // Default font, replace "Inter" with your preferred font
       }
     }
   },
