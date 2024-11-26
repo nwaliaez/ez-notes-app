@@ -60,10 +60,12 @@ npm run build:linux
 ```
 
 ## 🌟 Key Features
-### 💾  Using Firebase Realtime Database
+💾 Firebase Realtime Database Integration
 
-- In This firebase database we are using realtime database so we can change details with realtime.
-
+-- Real-Time Data Synchronization: Leveraging Firebase Realtime Database for instant, seamless data updates
+-- Efficient Backend Management: Utilizing Firebase's robust, scalable infrastructure
+-- Secure Data Storage: Implementing Firebase's built-in security features for reliable note preservation
+-- Automatic Synchronization: Enabling real-time note updates across different devices and sessions
 ### 📌 Effortless Note Pinning
 - Instant desktop note attachment
 - Persistent note storage

@@ -115,10 +115,3 @@ ul[data-type='taskList'] > li > label span::after {
   transform: translate(-50%, -50%) scale(0); /* Scaled down */
   opacity: 0;
 }
-
-.ProseMirror p.is-empty::before {
-  content: 'Write Your Work Here';
-  color: #9c9c9c;
-  pointer-events: none;
-  user-select: none;
-}
