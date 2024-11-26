@@ -1,4 +1,3 @@
-// TipTap.tsx
 import { useImperativeHandle, forwardRef, useEffect, useState } from 'react'
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
@@ -9,7 +8,8 @@ import OrderedList from '@tiptap/extension-ordered-list'
 import Link from '@tiptap/extension-link'
 import Underline from '@tiptap/extension-underline'
 import ListItem from '@tiptap/extension-list-item'
-
+import Placeholder from '@tiptap/extension-placeholder';
+import './TipTap.css'
 import { clsx } from 'clsx'
 import {
   Bold,
@@ -84,7 +84,7 @@ const Dropdown = ({ isOpen, setIsOpen, children, trigger }: DropdownProps) => {
       <div onClick={() => setIsOpen(!isOpen)}>{trigger}</div>
       {isOpen && (
         <div
-          className="absolute top-full mt-1 left-0 bg-primary border borderborder 
+          className="absolute top-full mt-1 left-0 bg-gray-800 border border-gray-700
                     rounded-md shadow-xl py-1 min-w-[160px] z-50"
         >
           {children}
@@ -135,7 +135,10 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
         Link.configure({
           openOnClick: false,
           linkOnPaste: true
-        })
+        }),
+        Placeholder.configure({
+          placeholder: 'Add Your Work Here',
+        }),
       ],
       content: content,
       onUpdate: ({ editor }) => {
@@ -187,8 +190,8 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
           <BubbleMenu
             editor={editor}
             tippyOptions={{ duration: 100 }}
-            className="flex text-text flex-wrap items-center gap-1 p-1.5 bg-primary backdrop-blur-sm 
-                      border border-border rounded-lg shadow-xl bubble-menu-container"
+            className="flex flex-wrap items-center gap-1 p-1.5 bg-gray-800/95 backdrop-blur-sm
+                      border border-gray-700/50 rounded-lg shadow-xl bubble-menu-container"
           >
             <ButtonGroup>
               <MenuButton
@@ -228,15 +231,15 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
               <div className="relative">
                 {showLinkInput ? (
                   <div
-                    className="absolute bottom-full mb-2 left-0 flex items-center gap-1 p-1 
-                              bg-primary border border-border rounded-md shadow-xl"
+                    className="absolute bottom-full mb-2 left-0 flex items-center gap-1 p-1
+                              bg-gray-800 border border-gray-700 rounded-md shadow-xl"
                   >
                     <input
                       type="url"
                       value={linkUrl}
                       onChange={(e) => setLinkUrl(e.target.value)}
                       placeholder="Enter URL..."
-                      className="w-48 px-2 py-1 text-sm bg-primary border border-border 
+                                className="w-48 px-2 py-1 text-sm bg-gray-700 border border-gray-600
                                rounded focus:outline-none focus:border-blue-500 text-white"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') {
