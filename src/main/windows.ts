@@ -149,15 +149,13 @@ export function createPinnedNote(noteId: string): BrowserWindow {
       width: 300,
       height: 400,
       autoHideMenuBar: true,
-      transparent: false,
       alwaysOnTop: true,
-      frame: true,
+      frame: false,
       visibleOnAllWorkspaces: true,
       openDevTools: true,
       title: 'Ez Notes',
       resizable: true,
-
-      // transparent: true,
+      transparent: true,
       vibrancy: isMac ? 'hud' : undefined
       // alwaysOnTop: true,
       // visibleOnAllWorkspaces: true,

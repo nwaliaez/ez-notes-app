@@ -63,8 +63,8 @@ const MenuButton = ({ onClick, active, children, disabled }: MenuButtonProps) =>
     disabled={disabled}
     className={clsx(
       'p-1.5 rounded-md transition-colors',
-      active && 'bg-gray-700 text-white',
-      !active && 'text-gray-300 hover:bg-gray-700/50',
+      active && 'bg-secondary text-text',
+      !active && 'text-text hover:bg-secondary',
       disabled && 'opacity-50 cursor-not-allowed'
     )}
   >
@@ -73,7 +73,7 @@ const MenuButton = ({ onClick, active, children, disabled }: MenuButtonProps) =>
 )
 
 const ButtonGroup = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex items-center border-r border-gray-700 pr-2 mr-2 last:border-r-0 last:pr-0 last:mr-0">
+  <div className="flex items-center border-r border-border pr-2 mr-2 last:border-r-0 last:pr-0 last:mr-0">
     {children}
   </div>
 )
@@ -106,8 +106,8 @@ const DropdownItem = ({
   <button
     onClick={onClick}
     className={clsx(
-      'w-full px-3 py-1.5 text-sm flex items-center gap-2 hover:bg-gray-700/50 text-gray-300',
-      active && 'bg-gray-700'
+      'w-full px-3 py-1.5 text-sm flex items-center gap-2 hover:bg-secondary text-text',
+      active && 'bg-secondary'
     )}
   >
     {children}
@@ -239,7 +239,7 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
                       value={linkUrl}
                       onChange={(e) => setLinkUrl(e.target.value)}
                       placeholder="Enter URL..."
-                      className="w-48 px-2 py-1 text-sm bg-gray-700 border border-gray-600
+                                className="w-48 px-2 py-1 text-sm bg-gray-700 border border-gray-600
                                rounded focus:outline-none focus:border-blue-500 text-white"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') {
@@ -252,7 +252,7 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
                     />
                     <button
                       onClick={handleLinkSubmit}
-                      className="p-1 hover:bg-gray-700 rounded text-green-400"
+                      className="p-1 hover:bg-primary rounded text-green-400"
                     >
                       <Check size={14} />
                     </button>

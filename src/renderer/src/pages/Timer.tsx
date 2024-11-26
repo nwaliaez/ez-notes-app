@@ -71,7 +71,7 @@ const Timer = () => {
         {/* Timer display */}
         <div
           className={`rounded-xl p-4 mb-4 transition-all duration-300  ${
-            time < 0 ? 'text-red-400' : 'text-white'
+            time < 0 ? 'text-red-400' : 'text-text'
           }`}
         >
           <div className="text-7xl font-bold text-center tracking-wider">{formatTime(time)}</div>
@@ -83,7 +83,7 @@ const Timer = () => {
           <div className="flex justify-center gap-4">
             <button
               className={`${
-                isRunning ? 'bg-white/10' : 'bg-emerald-500/80 hover:bg-emerald-600/80'
+                isRunning ? 'bg-textMuted' : 'bg-emerald-500/80 hover:bg-emerald-600/80'
               } backdrop-blur-sm text-white py-2 px-3 rounded-xl flex items-center gap-2 transition-all duration-300 shadow-lg border border-white/20`}
               onClick={handleStart}
               disabled={isRunning}
@@ -92,7 +92,7 @@ const Timer = () => {
             </button>
             <button
               className={`${
-                !isRunning ? 'bg-white/10' : 'bg-amber-500/80 hover:bg-amber-600/80'
+                !isRunning ? 'bg-textMuted' : 'bg-amber-500/80 hover:bg-amber-600/80'
               } backdrop-blur-sm text-white  py-2 px-3 rounded-xl flex items-center gap-2 transition-all duration-300 shadow-lg border border-white/20`}
               onClick={handleStop}
               disabled={!isRunning}
@@ -111,8 +111,8 @@ const Timer = () => {
           <div className="flex justify-center">
             <input
               type="number"
-              placeholder="Set Minutes"
-              className="w-32 p-3 rounded-xl text-center bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300"
+              placeholder="Set Mins"
+              className="w-28 p-3 rounded-xl text-center bg-white/10 backdrop-blur-sm border border-text text-text placeholder-text focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300"
               onChange={handleTimeChange}
               disabled={isRunning}
             />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { House, Moon, Plus, Sun, SunMoon, Timer } from 'lucide-react'
+import { House, Moon, Plus, Sun, Timer } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { themeClasses } from '@renderer/noteThemes'
 import useNoteStore from '@renderer/store/useNoteStore'

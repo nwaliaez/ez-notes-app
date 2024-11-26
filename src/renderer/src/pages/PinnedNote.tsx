@@ -5,6 +5,7 @@ import TitleInput from '../components/TitleInput'
 import Tiptap from '../components/TipTap'
 import debounce from 'lodash.debounce'
 import useNoteStore from '@renderer/store/useNoteStore'
+import { themeClasses, themeMap } from '@renderer/noteThemes'
 
 const PinnedNote = () => {
   const { id } = useParams<{ id: string }>() // Extract the `id` parameter from the URL
@@ -37,17 +38,33 @@ const PinnedNote = () => {
     debouncedUpdateNote(updatedNote)
   }
 
+  const handleCloseWindow = () => {
+    window.electronAPI.closeWindow()
+  }
   if (!note) return null
   return (
     <>
-      <div className="p-2">
+      <div
+        className={`draggable w-full h-6 ${themeClasses[note.theme]}  text-white flex items-center justify-between px-4`}
+      >
+        <div className="flex gap-2">
+          <button
+            onClick={handleCloseWindow}
+            className="no-drag w-3 h-3 bg-red-600 hover:bg-red-500 rounded-full"
+          ></button>
+        </div>
+      </div>
+      <div
+        className="p-2"
+        style={{ '--theme-color': `${themeMap[note.theme]}` } as React.CSSProperties}
+      >
         <TitleInput
-          className="text-white border-b border-gray-400 border-dashed pb-1"
+          className="text-text border-b border-gray-400 border-dashed pb-1"
           title={note.title}
           handleTitleChange={(e) => handleNoteChange('title', e.target.value)}
         />
         <Tiptap
-          className="text-white mt-4 text-lg"
+          className="text-text mt-4 text-lg"
           content={note.content}
           ref={tiptapRef}
           onContentChange={(value) => handleNoteChange('content', value)}
