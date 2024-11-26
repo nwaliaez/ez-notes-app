@@ -5,6 +5,7 @@ import TitleInput from '../components/TitleInput'
 import Tiptap from '../components/TipTap'
 import debounce from 'lodash.debounce'
 import useNoteStore from '@renderer/store/useNoteStore'
+import { themeMap } from '@renderer/noteThemes'
 
 const PinnedNote = () => {
   const { id } = useParams<{ id: string }>() // Extract the `id` parameter from the URL
@@ -40,14 +41,17 @@ const PinnedNote = () => {
   if (!note) return null
   return (
     <>
-      <div className="p-2">
+      <div
+        className="p-2"
+        style={{ '--theme-color': `${themeMap[note.theme]}` } as React.CSSProperties}
+      >
         <TitleInput
-          className="text-white border-b border-gray-400 border-dashed pb-1"
+          className="text-text border-b border-gray-400 border-dashed pb-1"
           title={note.title}
           handleTitleChange={(e) => handleNoteChange('title', e.target.value)}
         />
         <Tiptap
-          className="text-white mt-4 text-lg"
+          className="text-text mt-4 text-lg"
           content={note.content}
           ref={tiptapRef}
           onContentChange={(value) => handleNoteChange('content', value)}

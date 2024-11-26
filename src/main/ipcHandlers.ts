@@ -1,5 +1,5 @@
 import { ipcMain, BrowserWindow } from 'electron'
-import { createMainWindow, createPinnedNote, createTimerWindow } from './windows'
+import { createPinnedNote, createTimerWindow } from './windows'
 import {
   createNote,
   readNote,

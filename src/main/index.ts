@@ -16,7 +16,7 @@ function initializeApp() {
   initializeIpcHandlers()
 
   // Create the main window
-  const mainWindow = createMainWindow()
+  createMainWindow()
 
   // Handle macOS activate event
   // app.on('activate', function () {
