@@ -63,8 +63,8 @@ const MenuButton = ({ onClick, active, children, disabled }: MenuButtonProps) =>
     disabled={disabled}
     className={clsx(
       'p-1.5 rounded-md transition-colors',
-      active && 'bg-gray-700 text-white',
-      !active && 'text-gray-300 hover:bg-gray-700/50',
+      active && 'bg-secondary text-text',
+      !active && 'text-text hover:bg-secondary',
       disabled && 'opacity-50 cursor-not-allowed'
     )}
   >
@@ -73,7 +73,7 @@ const MenuButton = ({ onClick, active, children, disabled }: MenuButtonProps) =>
 )
 
 const ButtonGroup = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex items-center border-r border-gray-700 pr-2 mr-2 last:border-r-0 last:pr-0 last:mr-0">
+  <div className="flex items-center border-r border-border pr-2 mr-2 last:border-r-0 last:pr-0 last:mr-0">
     {children}
   </div>
 )
@@ -84,7 +84,7 @@ const Dropdown = ({ isOpen, setIsOpen, children, trigger }: DropdownProps) => {
       <div onClick={() => setIsOpen(!isOpen)}>{trigger}</div>
       {isOpen && (
         <div
-          className="absolute top-full mt-1 left-0 bg-gray-800 border border-gray-700 
+          className="absolute top-full mt-1 left-0 bg-primary border borderborder 
                     rounded-md shadow-xl py-1 min-w-[160px] z-50"
         >
           {children}
@@ -106,8 +106,8 @@ const DropdownItem = ({
   <button
     onClick={onClick}
     className={clsx(
-      'w-full px-3 py-1.5 text-sm flex items-center gap-2 hover:bg-gray-700/50 text-gray-300',
-      active && 'bg-gray-700'
+      'w-full px-3 py-1.5 text-sm flex items-center gap-2 hover:bg-secondary text-text',
+      active && 'bg-secondary'
     )}
   >
     {children}
@@ -187,8 +187,8 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
           <BubbleMenu
             editor={editor}
             tippyOptions={{ duration: 100 }}
-            className="flex flex-wrap items-center gap-1 p-1.5 bg-gray-800/95 backdrop-blur-sm 
-                      border border-gray-700/50 rounded-lg shadow-xl bubble-menu-container"
+            className="flex text-text flex-wrap items-center gap-1 p-1.5 bg-primary backdrop-blur-sm 
+                      border border-border rounded-lg shadow-xl bubble-menu-container"
           >
             <ButtonGroup>
               <MenuButton
@@ -229,14 +229,14 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
                 {showLinkInput ? (
                   <div
                     className="absolute bottom-full mb-2 left-0 flex items-center gap-1 p-1 
-                              bg-gray-800 border border-gray-700 rounded-md shadow-xl"
+                              bg-primary border border-border rounded-md shadow-xl"
                   >
                     <input
                       type="url"
                       value={linkUrl}
                       onChange={(e) => setLinkUrl(e.target.value)}
                       placeholder="Enter URL..."
-                      className="w-48 px-2 py-1 text-sm bg-gray-700 border border-gray-600 
+                      className="w-48 px-2 py-1 text-sm bg-primary border border-border 
                                rounded focus:outline-none focus:border-blue-500 text-white"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') {
@@ -249,7 +249,7 @@ const Tiptap = forwardRef<TiptapHandle, TiptapProps>(
                     />
                     <button
                       onClick={handleLinkSubmit}
-                      className="p-1 hover:bg-gray-700 rounded text-green-400"
+                      className="p-1 hover:bg-primary rounded text-green-400"
                     >
                       <Check size={14} />
                     </button>

@@ -5,7 +5,7 @@ import TitleInput from '../components/TitleInput'
 import Tiptap from '../components/TipTap'
 import debounce from 'lodash.debounce'
 import useNoteStore from '@renderer/store/useNoteStore'
-import { themeMap } from '@renderer/noteThemes'
+import { themeClasses, themeMap } from '@renderer/noteThemes'
 
 const PinnedNote = () => {
   const { id } = useParams<{ id: string }>() // Extract the `id` parameter from the URL
@@ -38,9 +38,22 @@ const PinnedNote = () => {
     debouncedUpdateNote(updatedNote)
   }
 
+  const handleCloseWindow = () => {
+    window.electronAPI.closeWindow()
+  }
   if (!note) return null
   return (
     <>
+      <div
+        className={`draggable w-full h-6 ${themeClasses[note.theme]}  text-white flex items-center justify-between px-4`}
+      >
+        <div className="flex gap-2">
+          <button
+            onClick={handleCloseWindow}
+            className="no-drag w-3 h-3 bg-red-600 hover:bg-red-500 rounded-full"
+          ></button>
+        </div>
+      </div>
       <div
         className="p-2"
         style={{ '--theme-color': `${themeMap[note.theme]}` } as React.CSSProperties}

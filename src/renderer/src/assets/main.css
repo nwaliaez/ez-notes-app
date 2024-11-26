@@ -5,8 +5,11 @@
 body {
   height: 100vh;
   font-family: 'Poppins', sans-serif;
+  /* background-color: transparent; */
+  backdrop-filter: blur(8px); /* Adjust the blur amount as needed */
+  /* background-color: rgba(255, 255, 255, 0.2); */
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
   color: #fff;
-  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,4 +20,12 @@ body {
 #root {
   height: 100vh;
   width: 100vw;
+}
+
+.draggable {
+  -webkit-app-region: drag;
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
 }
