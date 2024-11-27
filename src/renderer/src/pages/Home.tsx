@@ -2,12 +2,19 @@
 
 import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { themeClasses } from '@renderer/noteThemes'
+import { themeClasses, themeMap } from '@renderer/noteThemes'
 import useNoteStore from '@renderer/store/useNoteStore'
 import debounce from 'lodash.debounce'
 import TitleInput from '@renderer/components/TitleInput'
 import Tiptap from '@renderer/components/TipTap'
-import { Pin } from 'lucide-react'
+import { Ellipsis, Pin, Trash2 } from 'lucide-react'
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@renderer/components/ui/dropdown-menu'
 
 const Home: React.FC = () => {
   const tiptapRef = useRef<any>(null) // Replace 'any' with the actual type if available
@@ -15,6 +22,7 @@ const Home: React.FC = () => {
   const notes = useNoteStore((state) => state.notes)
   const loadNotes = useNoteStore((state) => state.loadNotes)
   const updateNote = useNoteStore((state) => state.updateNote)
+  const deleteNote = useNoteStore((state) => state.deleteNote)
 
   useEffect(() => {
     // Load notes when the component mounts
@@ -40,19 +48,23 @@ const Home: React.FC = () => {
   }
 
   const handlePinNote = async (noteId: string) => {
-    const note = notes.find((n) => n.id === noteId)
-    if (!note) return
+    // const note = notes.find((n) => n.id === noteId)
+    // if (!note) return
 
     // Send the note to Electron main process to pin it
-    window.electronAPI.pinNote(note.id)
+    window.electronAPI.pinNote(noteId)
 
     // Update the note in the database as pinned
     // await updateNote({ ...note, isPinned: true })
   }
+  const handleDeleteNote = async (noteId: string) => {
+    await deleteNote(noteId)
+    // window.electronAPI.deleteNote(noteId)
+  }
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Notes</h1>
+      <h1 className="text-2xl text-text font-semibold mb-4">Notes</h1>
       {notes.length === 0 ? (
         <p>
           No notes available.
@@ -65,21 +77,48 @@ const Home: React.FC = () => {
           {notes.map((note) => (
             <div
               key={note.id}
-              className={`${themeClasses[note.theme]} relative shadow rounded-lg p-4 hover:shadow-lg transition-shadow group overflow-auto`}
+              className={`bg-secondary relative shadow rounded-md hover:shadow-lg transition-shadow group overflow-auto`}
+              style={{ '--theme-color': `${themeMap[note.theme]}` } as React.CSSProperties}
             >
               <div
-                className="absolute top-2 right-2 cursor-pointer opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity delay-100"
-                onClick={() => handlePinNote(note.id)}
+                className={`${themeClasses[note.theme]} text-title sticky top-0 shadow-md z-10 p-2 px-4 flex justify-between group`}
               >
-                <Pin className="h-5 w-5 cursor-pointer text-gray-500" />
-              </div>
-              <TitleInput
-                className="border-none"
-                title={note.title}
-                handleTitleChange={(e) => handleNoteChange(note.id, 'title', e.target.value)}
-              />
+                <TitleInput
+                  className="border-none"
+                  title={note.title}
+                  handleTitleChange={(e) => handleNoteChange(note.id, 'title', e.target.value)}
+                />
 
+                <DropdownMenu>
+                  {/* Trigger (Three-dot icon) */}
+                  <DropdownMenuTrigger className="outline-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <Ellipsis className="h-5 w-5 cursor-pointer opacity-50" />
+                  </DropdownMenuTrigger>
+
+                  {/* Dropdown Content */}
+                  <DropdownMenuContent className="bg-secondary text-text w-40">
+                    {/* Pin Note Option */}
+                    <DropdownMenuItem
+                      className={`flex items-center gap-2 focus:bg-primary focus:text-accent-foreground cursor-pointer`}
+                      onClick={() => handlePinNote(note.id)}
+                    >
+                      <Pin className="h-4 w-4" />
+                      <span>Pin Note</span>
+                    </DropdownMenuItem>
+
+                    {/* Delete Note Option */}
+                    <DropdownMenuItem
+                      className={`flex items-center gap-2 focus:bg-primary focus:text-accent-foreground cursor-pointer text-error`}
+                      onClick={() => handleDeleteNote(note.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      <span>Delete Note</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
               <Tiptap
+                className="p-4"
                 content={note.content}
                 ref={tiptapRef}
                 onContentChange={(value) => handleNoteChange(note.id, 'content', value)}

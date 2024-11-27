@@ -14,12 +14,12 @@ const TitleInput: React.FC<TitleInputProps> = ({ title, handleTitleChange, class
   return (
     <Input
       aria-label="Note Title"
-      placeholder="Title here..."
+      placeholder=""
       value={title}
       // autoFocus={!title}
       onChange={handleTitleChange}
       className={clsx(
-        'flex-1 bg-transparent w-full text-gray-600 placeholder-gray-600 active:outline-none text-xl font-bold active:border-transparent active:ring-0',
+        'flex-1 bg-transparent w-full placeholder-text font-normal active:outline-none text-base  active:border-transparent active:ring-0',
         className // Merges additional classes if provided
       )}
     />

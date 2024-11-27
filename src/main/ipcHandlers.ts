@@ -18,6 +18,7 @@ export function initializeIpcHandlers(): void {
   // })
 
   ipcMain.handle('pin-note', (_event, id) => {
+    // createMainWindow()
     createPinnedNote(id)
   })
 

@@ -80,7 +80,7 @@ const loadContent = (
 ) => {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     const url = routePath
-      ? `${process.env['ELECTRON_RENDERER_URL']}${routePath}`
+      ? `${process.env['ELECTRON_RENDERER_URL']}/${routePath}`
       : process.env['ELECTRON_RENDERER_URL']
     window.loadURL(url)
   } else {
@@ -148,12 +148,20 @@ export function createPinnedNote(noteId: string): BrowserWindow {
     {
       width: 300,
       height: 400,
-      transparent: true,
-      vibrancy: isMac ? 'hud' : undefined,
+      autoHideMenuBar: true,
       alwaysOnTop: true,
+      frame: false,
       visibleOnAllWorkspaces: true,
-      openDevTools: true
+      openDevTools: true,
+      title: 'Ez Notes',
+      resizable: true,
+      transparent: true,
+      vibrancy: isMac ? 'hud' : undefined
+      // alwaysOnTop: true,
+      // visibleOnAllWorkspaces: true,
+      // openDevTools: true,
     },
+
     `pinnedNote/${noteId}`,
     { id: noteId }
   )
@@ -164,12 +172,16 @@ export function createTimerWindow(): BrowserWindow {
     {
       width: 300,
       height: 400,
-      transparent: true,
-      vibrancy: isMac ? 'hud' : undefined,
+      autoHideMenuBar: true,
+      transparent: false,
       alwaysOnTop: true,
+      frame: true,
       visibleOnAllWorkspaces: true,
-      openDevTools: true
-      // title: 'Timer'
+      openDevTools: true,
+      resizable: true,
+
+      title: 'Timer',
+      vibrancy: isMac ? 'hud' : undefined
     },
     'timer'
   )
