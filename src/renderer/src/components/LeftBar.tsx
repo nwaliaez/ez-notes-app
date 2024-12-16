@@ -26,19 +26,29 @@ const LeftBar: React.FC = ({}) => {
 
   const handleThemeChange = () => {
     toggleTheme()
-    // Apply the class to the HTML element
     document.documentElement.classList.toggle('dark', theme === 'light')
   }
+
   return (
     <div className="fixed left-0 top-0 h-full w-16 flex flex-col justify-center items-center gap-6">
       <Link to={'/'}>
-        <House className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text" />
+        <div className="relative group">
+          <House className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text" />
+          <span className="absolute left-full top-1/2 -translate-y-1/2 mr-2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-[9999]">
+            Home
+          </span>
+        </div>
       </Link>
       <div className="flex justify-center items-center flex-col gap-4">
-        <Plus
-          className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text"
-          onClick={() => setShowThemes(!showThemes)}
-        />
+        <div className="relative group">
+          <Plus
+            className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text"
+            onClick={() => setShowThemes(!showThemes)}
+          />
+          <span className="absolute left-full top-1/2 -translate-y-1/2 mr-2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-[9999]">
+            Add Note
+          </span>
+        </div>
         {showThemes && (
           <div className="flex flex-col gap-3 rounded">
             {[0, 1, 2, 3, 4].map((index) => (
@@ -51,17 +61,27 @@ const LeftBar: React.FC = ({}) => {
           </div>
         )}
       </div>
-      <Timer
-        className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text"
-        onClick={handleTimerClick}
-      />
-      <button onClick={handleThemeChange}>
-        {theme === 'light' ? (
-          <Sun className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text" />
-        ) : (
-          <Moon className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text" />
-        )}
-      </button>
+      <div className="relative group">
+        <Timer
+          className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text"
+          onClick={handleTimerClick}
+        />
+        <span className="absolute left-full top-1/2 -translate-y-1/2 mr-2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-[9999]">
+          Timer
+        </span>
+      </div>
+      <div className="relative group">
+        <button onClick={handleThemeChange}>
+          {theme === 'light' ? (
+            <Sun className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text" />
+          ) : (
+            <Moon className="h-5 w-5 cursor-pointer opacity-50 hover:opacity-100 text-text" />
+          )}
+        </button>
+        <span className="absolute left-full top-1/2 -translate-y-1/2 mr-2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-[9999]">
+          Toggle Theme
+        </span>
+      </div>
     </div>
   )
 }
